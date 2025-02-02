@@ -78,18 +78,18 @@ export const deleteAVideo = createAsyncThunk("videos/deleteAVideo", async (video
         const loadingToast = toast.loading("Deleting Video...");
         const response = await axiosInstance.delete(`/videos/${videoId}`);
         toast.success(response.message, { id: loadingToast });
-        return response.data;
+        return videoId;
     } catch (error) {
         toast.error(error.response.data.error, { id: loadingToast });
         throw error
     }
 });
 
-export const togglePublishStatus=createAsyncThunk("videos/togglePublishStatus",async(videoId)=>{
+export const togglePublishStatus = createAsyncThunk("videos/togglePublishStatus", async (videoId) => {
     try {
         const response = await axiosInstance.patch(`/videos/toggle-publish/${videoId}`);
         toast.success(response.message);
-        return response.data;
+        return { isPublished: response.data.isPublished, videoId };
     } catch (error) {
         toast.error(error.response.data.error);
         throw error
@@ -118,41 +118,30 @@ const videoSlice = createSlice({
         builder.addCase(getVideoById.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(publishAVideo.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(publishAVideo.fulfilled, (state) => {
+        builder.addCase(publishAVideo.fulfilled, (state, action) => {
             state.loading = false;
+            state.videos.unshift(action.payload);
         });
         builder.addCase(publishAVideo.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(updateAVideo.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(updateAVideo.fulfilled, (state) => {
+        builder.addCase(updateAVideo.fulfilled, (state, action) => {
             state.loading = false;
+            state.video = action.payload;
         });
         builder.addCase(updateAVideo.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(deleteAVideo.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(deleteAVideo.fulfilled, (state) => {
+        builder.addCase(deleteAVideo.fulfilled, (state, action) => {
             state.loading = false;
+            state.videos = state.videos.filter((video) => video._id !== action.payload);
         });
         builder.addCase(deleteAVideo.rejected, (state) => {
             state.loading = false;
         });
-        builder.addCase(togglePublishStatus.pending, (state) => {
-            state.loading = true;
-        });
-        builder.addCase(togglePublishStatus.fulfilled, (state) => {
+        builder.addCase(togglePublishStatus.fulfilled, (state, action) => {
             state.loading = false;
-        });
-        builder.addCase(togglePublishStatus.rejected, (state) => {
-            state.loading = false;
+            if (!action.payload.isPublished) state.videos = state.videos.filter((video) => video._id !== action.payload.videoId);
         });
     },
 });
