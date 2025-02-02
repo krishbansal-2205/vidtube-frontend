@@ -18,14 +18,15 @@ export const createAccount = createAsyncThunk("users/register", async (data) => 
     if (data.coverImage) {
         formData.append("coverImage", data.coverImage[0]);
     }
+    const loadingToast=toast.loading("Creating Account...");
 
     try {
         const response = await axiosInstance.post("/users/register", formData);
         console.log(response.data);
-        toast.success(response.message);
+        toast.success(response.message,{id:loadingToast});
         return response.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.error,{id:loadingToast});
         throw error
     }
 });
@@ -92,12 +93,13 @@ export const updateAccountDetails = createAsyncThunk("users/updateAccountDetails
 export const updateAvatar = createAsyncThunk("users/updateAvatar", async (data) => {
     const formData = new FormData();
     formData.append("avatar", data.avatar[0]);
+    const loadingToast=toast.loading("Updating Avatar...");
     try {
         const response = await axiosInstance.patch("/users/update-avatar", formData);
-        toast.success(response.message);
+        toast.success(response.message,{id:loadingToast});
         return response.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.error,{id:loadingToast});
         throw error
     }
 });
@@ -105,12 +107,13 @@ export const updateAvatar = createAsyncThunk("users/updateAvatar", async (data) 
 export const updateCoverImage = createAsyncThunk("users/updateCoverImage", async (data) => {
     const formData = new FormData();
     formData.append("coverImage", data.coverImage[0]);
+    const loadingToast=toast.loading("Updating Cover Image...");
     try {
         const response = await axiosInstance.patch("/users/update-cover-image", formData);
-        toast.success(response.message);
+        toast.success(response.message,{id:loadingToast});
         return response.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.error,{id:loadingToast});
         throw error
     }
 });
