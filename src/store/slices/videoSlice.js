@@ -21,9 +21,9 @@ export const getAllVideos = createAsyncThunk("videos/getAllVideos", async ({
         if (userId) url.searchParams.append("userId", userId);
 
         const response = await axiosInstance.get(url);
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -38,10 +38,10 @@ export const publishAVideo = createAsyncThunk("videos/publishAVideo", async (dat
     const loadingToast = toast.loading("Uploading Video...");
     try {
         const response = await axiosInstance.post("/videos/publish", formData);
-        toast.success(response.message, { id: loadingToast });
-        return response.data;
+        toast.success(response.data.message, { id: loadingToast });
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error, { id: loadingToast });
+        toast.error(error.response.data.message, { id: loadingToast });
         throw error
     }
 });
@@ -49,9 +49,9 @@ export const publishAVideo = createAsyncThunk("videos/publishAVideo", async (dat
 export const getVideoById = createAsyncThunk("videos/getVideoById", async (videoId) => {
     try {
         const response = await axiosInstance.get(`/videos/${videoId}`);
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -65,10 +65,10 @@ export const updateAVideo = createAsyncThunk("videos/updateAVideo", async ({ dat
         const loadingToast = toast.loading("Updating Video...");
 
         const response = await axiosInstance.patch(`/videos/${videoId}`, formData);
-        toast.success(response.message, { id: loadingToast });
-        return response.data;
+        toast.success(response.data.message, { id: loadingToast });
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error, { id: loadingToast });
+        toast.error(error.response.data.message, { id: loadingToast });
         throw error
     }
 });
@@ -77,10 +77,10 @@ export const deleteAVideo = createAsyncThunk("videos/deleteAVideo", async (video
     try {
         const loadingToast = toast.loading("Deleting Video...");
         const response = await axiosInstance.delete(`/videos/${videoId}`);
-        toast.success(response.message, { id: loadingToast });
+        toast.success(response.data.message, { id: loadingToast });
         return videoId;
     } catch (error) {
-        toast.error(error.response.data.error, { id: loadingToast });
+        toast.error(error.response.data.message, { id: loadingToast });
         throw error
     }
 });
@@ -88,10 +88,10 @@ export const deleteAVideo = createAsyncThunk("videos/deleteAVideo", async (video
 export const togglePublishStatus = createAsyncThunk("videos/togglePublishStatus", async (videoId) => {
     try {
         const response = await axiosInstance.patch(`/videos/toggle-publish/${videoId}`);
-        toast.success(response.message);
-        return { isPublished: response.data.isPublished, videoId };
+        toast.success(response.data.message);
+        return { isPublished: response.data.data.isPublished, videoId };
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });

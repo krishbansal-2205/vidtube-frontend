@@ -22,11 +22,10 @@ export const createAccount = createAsyncThunk("users/register", async (data) => 
 
     try {
         const response = await axiosInstance.post("/users/register", formData);
-        console.log(response.data);
-        toast.success(response.message,{id:loadingToast});
-        return response.data;
+        toast.success(response.data.message,{id:loadingToast});
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error,{id:loadingToast});
+        toast.error(error.response.data.message,{id:loadingToast});
         throw error
     }
 });
@@ -34,10 +33,10 @@ export const createAccount = createAsyncThunk("users/register", async (data) => 
 export const login = createAsyncThunk("users/login", async (data) => {
     try {
         const response = await axiosInstance.post("/users/login", data);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -45,10 +44,10 @@ export const login = createAsyncThunk("users/login", async (data) => {
 export const logout = createAsyncThunk("users/logout", async () => {
     try {
         const response = await axiosInstance.post("/users/logout");
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -56,9 +55,9 @@ export const logout = createAsyncThunk("users/logout", async () => {
 export const refreshAccessToken = createAsyncThunk("users/refreshAccessToken", async (data) => {
     try {
         const response = await axiosInstance.post("/users/refresh-token", data);
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -66,26 +65,26 @@ export const refreshAccessToken = createAsyncThunk("users/refreshAccessToken", a
 export const changePassword = createAsyncThunk("users/changePassword", async (data) => {
     try {
         const response = await axiosInstance.post("/users/change-password", data);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
 
 export const getCurrentUser = createAsyncThunk("users/getCurrentUser", async () => {
     const response = await axiosInstance.get("/users/current-user");
-    return response.data;
+    return response.data.data;
 });
 
 export const updateAccountDetails = createAsyncThunk("users/updateAccountDetails", async (data) => {
     try {
         const response = await axiosInstance.patch("/users/update-account", data);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -96,10 +95,10 @@ export const updateAvatar = createAsyncThunk("users/updateAvatar", async (data) 
     const loadingToast=toast.loading("Updating Avatar...");
     try {
         const response = await axiosInstance.patch("/users/update-avatar", formData);
-        toast.success(response.message,{id:loadingToast});
-        return response.data;
+        toast.success(response.data.message,{id:loadingToast});
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error,{id:loadingToast});
+        toast.error(error.response.data.message,{id:loadingToast});
         throw error
     }
 });
@@ -110,10 +109,10 @@ export const updateCoverImage = createAsyncThunk("users/updateCoverImage", async
     const loadingToast=toast.loading("Updating Cover Image...");
     try {
         const response = await axiosInstance.patch("/users/update-cover-image", formData);
-        toast.success(response.message,{id:loadingToast});
-        return response.data;
+        toast.success(response.data.message,{id:loadingToast});
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error,{id:loadingToast});
+        toast.error(error.response.data.message,{id:loadingToast});
         throw error
     }
 });

@@ -10,10 +10,10 @@ const initialState = {
 export const createComment = createAsyncThunk("comments/createComment", async ({ videoId, content }) => {
     try {
         const response = await axiosInstance.post(`/comments/${videoId}`, content);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -21,10 +21,10 @@ export const createComment = createAsyncThunk("comments/createComment", async ({
 export const updateComment = createAsyncThunk("comments/updateComment", async ({ commentId, content }) => {
     try {
         const response = await axiosInstance.patch(`/comments/c/${commentId}`, content);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -32,10 +32,10 @@ export const updateComment = createAsyncThunk("comments/updateComment", async ({
 export const deleteComment = createAsyncThunk("comments/deleteComment", async (commentId) => {
     try {
         const response = await axiosInstance.delete(`/comments/c/${commentId}`);
-        toast.success(response.message);
+        toast.success(response.data.message);
         return commentId;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -46,9 +46,9 @@ export const getVideoComments = createAsyncThunk("comments/getVideoComments", as
         if (page) url.searchParams.append("page", page);
         if (limit) url.searchParams.append("limit", limit);
         const response = await axiosInstance.get(url);
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });

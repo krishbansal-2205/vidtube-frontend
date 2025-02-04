@@ -1,12 +1,16 @@
 import React from "react"
-import { Route, Routes } from "react-router-dom"
-import { Toaster } from "react-hot-toast"
+import Navbar from "./components/Navbar"
+import Sidebar from "./components/Sidebar"
+import Skeleton from "./components/Skeleton"
 
 function App() {
 
   return (
     <>
-      <h1>Hello</h1>
+      <Sidebar >
+        <Navbar />
+        <Skeleton />
+      </Sidebar>
     </>
   )
 }

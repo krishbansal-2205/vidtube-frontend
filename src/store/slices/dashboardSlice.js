@@ -10,9 +10,9 @@ const initialState = {
 export const getChannelStats = createAsyncThunk("dashboard/getChannelStats", async () => {
     try {
         const response = await axiosInstance.get("/dashboard/stats");
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -20,9 +20,9 @@ export const getChannelStats = createAsyncThunk("dashboard/getChannelStats", asy
 export const getChannelVideos = createAsyncThunk("dashboard/getChannelVideos", async () => {
     try {
         const response = await axiosInstance.get("/dashboard/videos");
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });

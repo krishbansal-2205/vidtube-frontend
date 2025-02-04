@@ -11,10 +11,10 @@ const initialState = {
 export const createTweet = createAsyncThunk("tweets/createTweet", async (content) => {
     try {
         const response = await axiosInstance.post("/tweets", content);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -22,9 +22,9 @@ export const createTweet = createAsyncThunk("tweets/createTweet", async (content
 export const getUserTweets = createAsyncThunk("tweets/getUserTweets", async (userId) => {
     try {
         const response = await axiosInstance.get(`/tweets/user/${userId}`);
-        return response.data;
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -32,10 +32,10 @@ export const getUserTweets = createAsyncThunk("tweets/getUserTweets", async (use
 export const updateTweet = createAsyncThunk("tweets/updateTweet", async ({ content, tweetId }) => {
     try {
         const response = await axiosInstance.patch(`/tweets/${tweetId}`, content);
-        toast.success(response.message);
-        return response.data;
+        toast.success(response.data.message);
+        return response.data.data;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
@@ -43,10 +43,10 @@ export const updateTweet = createAsyncThunk("tweets/updateTweet", async ({ conte
 export const deleteTweet = createAsyncThunk("tweets/deleteTweet", async (tweetId) => {
     try {
         const response = await axiosInstance.delete(`/tweets/${tweetId}`);
-        toast.success(response.message);
+        toast.success(response.data.message);
         return tweetId;
     } catch (error) {
-        toast.error(error.response.data.error);
+        toast.error(error.response.data.message);
         throw error
     }
 });
