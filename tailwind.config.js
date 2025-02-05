@@ -9,5 +9,15 @@ export default {
     extend: {},
   },
   plugins: [daisyui],
+  daisyui: {
+    themes:[
+      {
+        dark:{
+          ...require("daisyui/src/theming/themes")["dark"],
+          "base-100":"#09090b"
+        }
+      }
+    ]
+  }
 }
 

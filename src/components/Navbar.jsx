@@ -1,8 +1,10 @@
 import React from 'react'
+import { useSelector } from 'react-redux'
 
 function Navbar() {
+    const user  = useSelector(state => state.auth)
     return (
-        <div className="navbar bg-base-100">
+        <div className="navbar bg-zinc-950">
             <div className="navbar-start">
                 <label className="btn btn-ghost btn-circle" htmlFor="my-drawer">
                     <svg
@@ -24,18 +26,17 @@ function Navbar() {
                 <div className="form-control mr-5">
                     <input type="text" placeholder="Search" className="input input-bordered w-24 md:w-72" />
                 </div>
-                <button className='btn btn-primary w-24 text-base'>Login</button>
-                {/* <div className="dropdown dropdown-end">
+                {user.status == true ? (<div className="dropdown dropdown-end">
                     <div tabIndex={0} role="button" className="btn btn-ghost btn-circle avatar">
                         <div className="w-10 rounded-full">
                             <img
-                                alt="Tailwind CSS Navbar component"
-                                src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+                                alt="User Avatar"
+                                src={user.userData.avatar} />
                         </div>
                     </div>
                     <ul
                         tabIndex={0}
-                        className="menu menu-sm dropdown-content bg-base-100 rounded-box z-[1] mt-3 w-52 p-2 shadow ">
+                        className="menu menu-sm dropdown-content bg-zinc-950 rounded-box z-[1] mt-3 w-52 p-2 shadow ">
                         <li>
                             <a className="justify-between text-lg">
                                 Profile
@@ -45,7 +46,8 @@ function Navbar() {
                         <li><a className='text-lg'>Settings</a></li>
                         <li><a className='text-lg'>Logout</a></li>
                     </ul>
-                </div> */}
+                </div>) :
+                    (<button className='btn btn-primary w-24 text-base'>Login</button>)}
             </div>
         </div>
     )

@@ -9,7 +9,7 @@ function Sidebar({ children }) {
             </div>
             <div className="drawer-side">
                 <label htmlFor="my-drawer" aria-label="close sidebar" className="drawer-overlay"></label>
-                <ul className="menu bg-base-200 text-base-content rounded-box min-h-full w-60 p-4 ">
+                <ul className="menu bg-base-100 text-base-content rounded-box min-h-full w-60 p-4 ">
                     <div className='flex items-center pb-8'>
                         <label className="btn btn-ghost btn-circle" htmlFor="my-drawer">
                             <svg

@@ -10,17 +10,18 @@ const initialState = {
 
 export const getAllVideos = createAsyncThunk("videos/getAllVideos", async ({
     page, limit, query, sortBy, sortType, userId
-}) => {
+}= {}) => {
     try {
-        const url = new URL("/videos", import.meta.env.VITE_BACKEND_URL);
-        if (page) url.searchParams.append("page", page);
-        if (limit) url.searchParams.append("limit", limit);
-        if (query) url.searchParams.append("query", query);
-        if (sortBy) url.searchParams.append("sortBy", sortBy);
-        if (sortType) url.searchParams.append("sortType", sortType);
-        if (userId) url.searchParams.append("userId", userId);
-
-        const response = await axiosInstance.get(url);
+        const response = await axiosInstance.get('/videos', {
+            params: {
+                page,
+                limit,
+                query,
+                sortBy,
+                sortType,
+                userId
+            }
+        });
         return response.data.data;
     } catch (error) {
         toast.error(error.response.data.message);
