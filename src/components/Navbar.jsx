@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 function Navbar() {
     const user  = useSelector(state => state.auth)
     return (
-        <div className="navbar bg-zinc-950">
+        <div className="navbar bg-base-100">
             <div className="navbar-start">
                 <label className="btn btn-ghost btn-circle" htmlFor="my-drawer">
                     <svg
@@ -47,7 +47,7 @@ function Navbar() {
                         <li><a className='text-lg'>Logout</a></li>
                     </ul>
                 </div>) :
-                    (<button className='btn btn-primary w-24 text-base'>Login</button>)}
+                    (<button className='btn btn-primary md:w-24 w-16 text-base'>Login</button>)}
             </div>
         </div>
     )

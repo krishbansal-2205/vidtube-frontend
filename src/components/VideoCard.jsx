@@ -4,7 +4,7 @@ function VideoCard({
     thumbnail, title, views, owner, duration
 }) {
     return (
-        <div className="card card-compact bg-base-100 md:w-96 w-72  cursor-pointer">
+        <div className="card card-compact card-bordered border-2 bg-base-100 md:w-96 w-72 cursor-pointer">
             <figure className='relative'>
                 <img
                     src={thumbnail}
@@ -22,9 +22,9 @@ function VideoCard({
                         />
                     </div>
                     <div>
-                        <h2 className="card-title">{title}</h2>
-                        <p>{owner.username}</p>
-                        <p>{views} views</p>
+                        <h2 className="card-title text-lg">{title}</h2>
+                        <p className='text-sm'>{owner.username}</p>
+                        <p className='text-sm'>{views} views</p>
                     </div>
                 </div>
             </div>

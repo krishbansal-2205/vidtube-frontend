@@ -15,6 +15,9 @@ export default {
         dark:{
           ...require("daisyui/src/theming/themes")["dark"],
           "base-100":"#09090b"
+        },
+        light:{
+          ...require("daisyui/src/theming/themes")["light"],
         }
       }
     ]
